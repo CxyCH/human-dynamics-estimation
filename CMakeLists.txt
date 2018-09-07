@@ -18,8 +18,8 @@ include(CTest)
 
 option(BUILD_TESTING "Build tests" OFF)
 
-## Find packages
-find_package(YARP REQUIRED)
+# Find packages
+find_package(YARP 3.0 REQUIRED)
 find_package(YCM REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(iDynTree REQUIRED)
