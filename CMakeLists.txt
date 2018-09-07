@@ -1,7 +1,11 @@
-cmake_minimum_required(VERSION 3.5)
+# Copyright (C) 2018 Istituto Italiano di Tecnologia (IIT). All rights reserved.
+# This software may be modified and distributed under the terms of the
+# GNU Lesser General Public License v2.1 or any later version.
 
+cmake_minimum_required(VERSION 3.5)
 project(HumanDynamicsEstimation CXX)
-set(CMAKE_CXX_STANDARD 11)
+
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(BUILD_DOCS)
@@ -30,12 +34,28 @@ include(AddWarningsConfigurationToTarget)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 # Shared/Dynamic or Static library?
-option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
+if(MSVC)
+    option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" OFF)
+else()
+    option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
+endif()
+if (NOT BUILD_SHARED_LIBS)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
 
+# Control where binaries and libraries are placed in the build folder.
+# This simplifies tests running in Windows.
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
+
+if(MSVC)
+    option(HUMAN_DYNAMICS_ESTIMATION_ENABLE_RPATH "Enable rpath" FALSE)
+else()
+    option(HUMAN_DYNAMICS_ESTIMATION_ENABLE_RPATH "Enable rpath" TRUE)
+endif()
+mark_as_advanced(HUMAN_DYNAMICS_ESTIMATION_ENABLE_RPATH)
 include(AddInstallRPATHSupport)
-#check discussion in YARP
-option(HUMAN_DYNAMICS_ESTIMATION_ENABLE_RPATH "Enable rpath" TRUE)
-mark_as_advanced(ENABLE_RPATH)
 add_install_rpath_support(BIN_DIRS "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}"
                           LIB_DIRS "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}"
                           DEPENDS HUMAN_DYNAMICS_ESTIMATION_ENABLE_RPATH
@@ -63,3 +83,10 @@ add_subdirectory(yarp)
 #### add the "uninstall" target
 include(AddUninstallTarget)
 
+# NEW HDE:
+yarp_configure_plugins_installation(hde)
+add_subdirectory(msgs)
+add_subdirectory(interfaces)
+add_subdirectory(devices)
+add_subdirectory(wrappers)
+add_subdirectory(publishers)
