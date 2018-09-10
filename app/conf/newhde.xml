@@ -16,7 +16,7 @@
 </device>
 
 <device type="human_state_provider" name="HumanStateProvider">
-    <param name="period">0.50</param>
+    <param name="period">0.100</param>
     <param name="urdf">Claudia66DoF_Dec2017.urdf</param>
     <param name="floatingBaseFrame">(Pelvis, XsensSuit::vLink::Pelvis)</param>
     <param name="allowIKFailures">true</param>
@@ -137,7 +137,7 @@
     <action phase="shutdown" level="5" type="detach"/>
 </device-->
 
-<!--device type="human_state_publisher" name="HumanStatePublisher">
+<device type="human_state_publisher" name="HumanStatePublisher">
     <param name="period">0.020</param>
     <param name="baseTFName">/Human/Pelvis</param>
     <param name="humanJointsTopic">/Human/joint_states</param>
@@ -147,7 +147,7 @@
         </paramlist>
     </action>
     <action phase="shutdown" level="5" type="detach"/>
-</device-->
+</device>
 
 <!--device type="xsens_tf_publisher" name="XsensTFPublisher">
     <param name="period">0.010</param>
