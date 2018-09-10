@@ -307,11 +307,11 @@ bool HumanStateProvider::open(yarp::os::Searchable& config)
     {
         using namespace iDynTree;
 
-        pImpl->ik.setVerbosity(50); // TODO
-        pImpl->ik.setCostTolerance(1E-1); // TODO
+        pImpl->ik.setVerbosity(1); // TODO
         pImpl->ik.setMaxIterations(maxIterationsIK);
         //        pImpl->ik.setRotationParametrization(InverseKinematicsRotationParametrizationQuaternion);
         pImpl->ik.setRotationParametrization(InverseKinematicsRotationParametrizationRollPitchYaw);
+        pImpl->ik.setCostTolerance(1E-0); // TODO
 
         if (!pImpl->ik.setModel(pImpl->humanModel)) {
             yError() << LogPrefix << "IK: failed to load the model";
@@ -454,8 +454,8 @@ void HumanStateProvider::run()
             return;
         }
 
-        iDynTree::Vector4 q = pImpl->linkRotationMatrices.at(linkName).asQuaternion();
-        yDebug() << LogPrefix << q(0) << q(1) << q(2) << q(3) << linkName;
+        //        iDynTree::Vector4 q = pImpl->linkRotationMatrices.at(linkName).asQuaternion();
+        //        yDebug() << LogPrefix << q(0) << q(1) << q(2) << q(3) << linkName;
 
         if (!pImpl->ik.updateRotationTarget(linkName, pImpl->linkRotationMatrices.at(linkName))) {
             yError() << LogPrefix << "Failed to update rotation target for link" << linkName;
