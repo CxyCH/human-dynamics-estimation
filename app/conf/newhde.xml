@@ -17,7 +17,7 @@
 
 <device type="human_state_provider" name="HumanStateProvider">
     <param name="period">0.100</param>
-    <param name="urdf">Claudia66DoF_Dec2017.urdf</param>
+    <param name="urdf">Claudia66DoF.urdf</param>
     <param name="floatingBaseFrame">(Pelvis, XsensSuit::vLink::Pelvis)</param>
     <param name="allowIKFailures">true</param>
     <param name="maxIterationsIK">500</param>
@@ -149,7 +149,7 @@
     <action phase="shutdown" level="5" type="detach"/>
 </device>
 
-<!--device type="xsens_tf_publisher" name="XsensTFPublisher">
+<device type="xsens_tf_publisher" name="XsensTFPublisher">
     <param name="period">0.010</param>
     <param name="baseLinkName">Pelvis</param>
     <param name="baseLinkVirtualSensor">XsensSuit::vLink::Pelvis</param>
@@ -160,6 +160,6 @@
         </paramlist>
     </action>
     <action phase="shutdown" level="5" type="detach"/>
-</device-->
+</device>
 
 </robot>
