@@ -24,7 +24,7 @@ class HumanStateWrapper::impl
 {
 public:
     hde::interfaces::IHumanState* humanState = nullptr;
-    yarp::os::BufferedPort<hde::msgs::HumanState> outputPort;
+    yarp::os::BufferedPort<human::HumanState> outputPort;
 };
 
 HumanStateWrapper::HumanStateWrapper()
@@ -94,7 +94,7 @@ void HumanStateWrapper::run()
     std::vector<double> jointVelocitiesInterface = pImpl->humanState->getJointVelocities();
 
     // Prepare the message
-    hde::msgs::HumanState& humanStateData = pImpl->outputPort.prepare();
+    human::HumanState& humanStateData = pImpl->outputPort.prepare();
 
     // Convert the base position
     humanStateData.baseOriginWRTGlobal = {

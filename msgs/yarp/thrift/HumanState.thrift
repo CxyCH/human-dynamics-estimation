@@ -1,4 +1,4 @@
-namespace yarp hde.msgs
+namespace yarp human
 
 struct Vector {
   1: list<double> content;
