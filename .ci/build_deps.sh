@@ -58,7 +58,7 @@ cmake --build . --config ${TRAVIS_BUILD_TYPE} --target install
 cd $GIT_FOLDER
 git clone https://github.com/robotology-playground/wearables.git
 cd wearables
-mkdir build && cd build
+git checkout feature/cleanup
 cmake -G"${TRAVIS_CMAKE_GENERATOR}" \
       -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} \
       ..
