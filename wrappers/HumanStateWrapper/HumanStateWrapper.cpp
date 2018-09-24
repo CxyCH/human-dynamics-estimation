@@ -106,7 +106,10 @@ void HumanStateWrapper::run()
         {baseOrientationInterface[1], baseOrientationInterface[2], baseOrientationInterface[3]}};
 
     // Convert the base velocity
-    humanStateData.baseVelocityWRTGlobal = {baseVelocity[0], baseVelocity[1], baseVelocity[2]};
+    humanStateData.baseVelocityWRTGlobal.resize(3);
+    humanStateData.baseVelocityWRTGlobal[0] = baseVelocity[0];
+    humanStateData.baseVelocityWRTGlobal[1] = baseVelocity[1];
+    humanStateData.baseVelocityWRTGlobal[2] = baseVelocity[2];
 
     // Convert the joint positions
     humanStateData.positions.resize(jointPositionsInterface.size());
